@@ -1,4 +1,4 @@
-\# E-Commerce Sales, Customer Behavior and Delivery Performance Analytics
+## E-Commerce Sales, Customer Behavior and Delivery Performance Analytics
 
 
 
@@ -8,7 +8,7 @@ using PostgreSQL, SQL and Power BI.
 
 
 
-\## Business questions
+## Business questions
 
 1\. How do orders and sales change month by month?
 
@@ -22,7 +22,7 @@ using PostgreSQL, SQL and Power BI.
 
 
 
-\## Data
+## Data
 
 \- Source: Olist Brazilian E-Commerce dataset (Kaggle, public). 9 CSV files.
 
@@ -32,7 +32,7 @@ using PostgreSQL, SQL and Power BI.
 
 
 
-\## Workflow
+## Workflow
 
 1\. Loaded the raw CSVs unchanged into a `staging` schema (all columns as text).
 
@@ -46,55 +46,54 @@ using PostgreSQL, SQL and Power BI.
 
 
 
-\## Metric definitions
+## Metric definitions
 
-\- \*\*Item sales\*\*: sum of `price` for orders not `canceled` or `unavailable`. Freight and payment value are separate measures and are never added to sales.
+- \*\*Item sales\*\*: sum of `price` for orders not `canceled` or `unavailable`. Freight and payment value are separate measures and are never added to sales.
 
-\- \*\*Delivered order (delivery metrics)\*\*: status `delivered` with a delivery date.
+- \*\*Delivered order (delivery metrics)\*\*: status `delivered` with a delivery date.
 
-\- \*\*Delivery duration\*\*: delivered date minus purchase date, in days.
+- \*\*Delivery duration\*\*: delivered date minus purchase date, in days.
 
-\- \*\*Late order\*\*: delivered date later than the estimated date.
+- \*\*Late order\*\*: delivered date later than the estimated date.
 
-\- \*\*Customer\*\*: distinct `customer\_unique\_id`. \*\*Repeat customer\*\*: 2 or more eligible orders.
-
-
-
-\## Dashboard
-
-!\[Executive Overview](docs/page1.png)
-
-!\[Sales and Payments](docs/page2.png)
-
-!\[Customers and Delivery](docs/page3.png)
+- \*\*Customer\*\*: distinct `customer\_unique\_id`. \*\*Repeat customer\*\*: 2 or more eligible orders.
 
 
+## Dashboard
 
-\## Key results
+![Executive Overview](docs/page1.png)
 
-See `docs/executive\_summary.md`.
+![Sales and Payments](docs/page2.png)
+
+![Customers and Delivery](docs/page3.png)
 
 
 
-\## Validation
+## Key results
+
+See `docs/executive_summary.md.docx` (Word file, download to read).
+
+
+
+## Validation
 
 SQL and Power BI totals were compared (item sales, payment value, late orders, repeat customers, 2017 sales, SP delivery metrics).
 
 
 
-\## Limitations
+## Limitations
 
-\- Power BI totals differ from SQL by about 0.002% (267.40 of 13.59M). Cause not identified. SQL is the source of truth.
+- Power BI totals differ from SQL by about 0.002% (267.40 of 13.59M). Cause not identified. SQL is the source of truth.
 
-\- Payments do not always equal item sales plus freight (775 orders have payments but no items).
+- Payments do not always equal item sales plus freight (775 orders have payments but no items).
 
-\- No cost data, so no profit analysis. Currency is not specified in the data.
+- No cost data, so no profit analysis. Currency is not specified in the data.
 
-\- The analysis is based on a static historical dataset.
+- The analysis is based on a static historical dataset.
 
 
 
-\## How to reproduce
+## How to reproduce
 
 1\. Download the dataset from Kaggle and load the CSVs into `staging` tables in PostgreSQL.
 
