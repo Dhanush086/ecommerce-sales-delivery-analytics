@@ -1,0 +1,59 @@
+-- 1. Orders per month
+SELECT DATE_TRUNC('month', purchase_ts) AS order_month,
+       COUNT(*) AS orders
+FROM clean.orders
+GROUP BY order_month
+ORDER BY order_month;
+
+-- 2. Monthly item sales (excludes canceled and unavailable orders)
+SELECT DATE_TRUNC('month', o.purchase_ts) AS order_month,
+       COUNT(DISTINCT o.order_id) AS orders,
+       SUM(i.price) AS item_sales,
+       SUM(i.freight_value) AS freight
+FROM clean.orders o
+JOIN clean.order_items i ON i.order_id = o.order_id
+WHERE o.order_status NOT IN ('canceled', 'unavailable')
+GROUP BY order_month
+ORDER BY order_month;
+
+-- 3. Delivery: average days and late orders (valid delivered orders only)
+SELECT COUNT(*) AS delivered_orders,
+       ROUND(AVG(EXTRACT(EPOCH FROM (delivered_ts - purchase_ts)) / 86400)::numeric, 1) AS avg_delivery_days,
+       COUNT(*) FILTER (WHERE delivered_ts > estimated_ts) AS late_orders
+FROM clean.orders
+WHERE is_delivery_valid;
+
+-- 4. Late delivery by month
+SELECT DATE_TRUNC('month', purchase_ts) AS order_month,
+       COUNT(*) AS delivered_orders,
+       COUNT(*) FILTER (WHERE delivered_ts > estimated_ts) AS late_orders,
+       ROUND(100.0 * COUNT(*) FILTER (WHERE delivered_ts > estimated_ts) / COUNT(*), 1) AS late_pct
+FROM clean.orders
+WHERE is_delivery_valid
+GROUP BY order_month
+ORDER BY order_month;
+
+-- 5. Repeat customers (customer = customer_unique_id)
+WITH per_customer AS (
+    SELECT c.customer_unique_id,
+           COUNT(DISTINCT o.order_id) AS orders
+    FROM clean.orders o
+    JOIN clean.customers c ON c.customer_id = o.customer_id
+    WHERE o.order_status NOT IN ('canceled', 'unavailable')
+    GROUP BY c.customer_unique_id
+)
+SELECT COUNT(*) AS customers,
+       COUNT(*) FILTER (WHERE orders >= 2) AS repeat_customers,
+       ROUND(100.0 * COUNT(*) FILTER (WHERE orders >= 2) / COUNT(*), 2) AS repeat_pct,
+       MAX(orders) AS max_orders_by_one_person
+FROM per_customer;
+
+-- 6. Payment types
+SELECT payment_type,
+       COUNT(DISTINCT order_id) AS orders,
+       COUNT(*) AS payment_rows,
+       SUM(payment_value) AS payment_value,
+       ROUND(AVG(payment_installments), 1) AS avg_installments
+FROM clean.order_payments
+GROUP BY payment_type
+ORDER BY orders DESC;
