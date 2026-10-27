@@ -45,3 +45,5 @@ SELECT
     INITCAP(TRIM(customer_city)) AS customer_city,
     UPPER(TRIM(customer_state))  AS customer_state
 FROM staging.customers;
+ALTER TABLE clean.orders ADD PRIMARY KEY (order_id);
+ALTER TABLE clean.customers ADD PRIMARY KEY (customer_id);
