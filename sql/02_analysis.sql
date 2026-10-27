@@ -1,7 +1,8 @@
--- 1. Orders per month
+-- 1. Orders per month (all statuses, Sep 2016 to Aug 2018)
 SELECT DATE_TRUNC('month', purchase_ts) AS order_month,
        COUNT(*) AS orders
 FROM clean.orders
+WHERE purchase_ts >= '2016-09-01' AND purchase_ts < '2018-09-01'
 GROUP BY order_month
 ORDER BY order_month;
 
@@ -13,6 +14,7 @@ SELECT DATE_TRUNC('month', o.purchase_ts) AS order_month,
 FROM clean.orders o
 JOIN clean.order_items i ON i.order_id = o.order_id
 WHERE o.order_status NOT IN ('canceled', 'unavailable')
+  AND o.purchase_ts >= '2016-09-01' AND o.purchase_ts < '2018-09-01'
 GROUP BY order_month
 ORDER BY order_month;
 
@@ -30,6 +32,7 @@ SELECT DATE_TRUNC('month', purchase_ts) AS order_month,
        ROUND(100.0 * COUNT(*) FILTER (WHERE delivered_ts > estimated_ts) / COUNT(*), 1) AS late_pct
 FROM clean.orders
 WHERE is_delivery_valid
+  AND purchase_ts >= '2016-09-01' AND purchase_ts < '2018-09-01'
 GROUP BY order_month
 ORDER BY order_month;
 
