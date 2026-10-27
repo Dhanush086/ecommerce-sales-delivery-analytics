@@ -57,3 +57,14 @@ SELECT payment_type,
 FROM clean.order_payments
 GROUP BY payment_type
 ORDER BY orders DESC;
+-- 7. Item sales by customer state, with share of total and rank
+SELECT c.customer_state,
+       SUM(i.price) AS item_sales,
+       ROUND(100.0 * SUM(i.price) / SUM(SUM(i.price)) OVER (), 1) AS pct_of_total,
+       RANK() OVER (ORDER BY SUM(i.price) DESC) AS sales_rank
+FROM clean.orders o
+JOIN clean.order_items i ON i.order_id = o.order_id
+JOIN clean.customers c ON c.customer_id = o.customer_id
+WHERE o.order_status NOT IN ('canceled', 'unavailable')
+GROUP BY c.customer_state
+ORDER BY item_sales DESC;
