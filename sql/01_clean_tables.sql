@@ -14,7 +14,11 @@ SELECT
     NULLIF(order_delivered_customer_date, '')::timestamp  AS delivered_ts,
     NULLIF(order_estimated_delivery_date, '')::timestamp  AS estimated_ts,
     (order_status = 'delivered'
-       AND NULLIF(order_delivered_customer_date, '') IS NOT NULL) AS is_delivery_valid
+       AND NULLIF(order_delivered_customer_date, '') IS NOT NULL) AS is_delivery_valid,
+    (order_status = 'delivered'
+       AND NULLIF(order_delivered_customer_date, '') IS NOT NULL
+       AND NULLIF(order_delivered_customer_date, '')::timestamp
+         > NULLIF(order_estimated_delivery_date, '')::timestamp) AS is_late
 FROM staging.orders;
 
 CREATE TABLE clean.order_items AS
