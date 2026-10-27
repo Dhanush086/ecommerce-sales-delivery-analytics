@@ -1,4 +1,6 @@
 -- Builds the clean layer (real data types) from the raw staging tables.
+-- Rebuilds the clean layer from staging. Safe to rerun.
+DROP SCHEMA IF EXISTS clean CASCADE;
 CREATE SCHEMA IF NOT EXISTS clean;
 
 CREATE TABLE clean.orders AS
