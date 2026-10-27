@@ -22,10 +22,30 @@
 | 6 | Few customers buy again | 2,888 of 94,990 customers (3.04%) placed 2 or more eligible orders | Test retention offers | About two years of data. This is a repeat rate, not customer lifetime value |
 | 7 | Sales are concentrated in a few states | SP 38.3% of item sales (5,163,867.22), top 5 states about 73.9%. SP delivery is faster (8.76 days) with fewer late orders (5.89%) | Protect service quality in SP and look at growth in smaller states | Association only. Cause unknown |
 
-## Data limitations
+## Limitations
 
-- Payments do not always equal item sales plus freight: 98,362 orders match, 264 paid more, 39 paid less, and 775 have payments but no item rows. Cause not identified.
+**Data coverage**
+- Static historical snapshot, not a live feed. Findings describe the past only.
+- Trends cover Sep 2016 to Aug 2018. Sep and Oct 2018 contain only 20 orders, and none are delivered.
+- Sep to Dec 2016 have very few orders (Nov 2016 has none), so early monthly values are not meaningful for trends.
+- About two years of data, so later repeat purchases are not visible.
+
+**Data quality**
 - 8 delivered orders have no delivery date and are excluded from delivery metrics.
-- Power BI totals differed from SQL by about 0.002% (267.40 of 13.59M). Cause not identified. SQL is the source of truth.
-- There is no cost data, so there is no profit analysis. Currency is not specified in the data.
-- The dataset is a static historical snapshot.
+- Payments do not always equal item sales plus freight: 98,362 orders match, 264 paid more, 39 paid less, and 775 have payments but no item rows. The cause is not identified.
+- 3 payment records have type `not_defined` with value 0.
+- 1 order has items but no payment record.
+
+**Metric scope**
+- No cost data, so no profit analysis. Currency is not specified in the data.
+- Repeat rate (3.04%) is not customer lifetime value.
+- Item sales exclude cancelled and unavailable orders. This is my own rule, documented in the metric definitions.
+- Late % uses delivered orders with a delivery date only. Orders still in transit are not counted.
+- Late % by month hides months with fewer than 100 delivered orders (a chart filter, not a data change).
+
+**Analysis scope**
+- Findings show associations, not causes. For example, the data does not explain the March 2018 spike or the Nov 2017 peak.
+- Only one November exists, so the peak cannot be called seasonal.
+- Reviews, products and sellers were not analysed (only orders, items, payments and customers).
+- The Power BI file is not included in the repository.
+  
