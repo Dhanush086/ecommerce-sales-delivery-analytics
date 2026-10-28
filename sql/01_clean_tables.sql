@@ -61,3 +61,6 @@ ORDER BY order_id, NULLIF(review_creation_date, '')::timestamp DESC NULLS LAST, 
 
 ALTER TABLE clean.orders ADD PRIMARY KEY (order_id);
 ALTER TABLE clean.customers ADD PRIMARY KEY (customer_id);
+ALTER TABLE clean.order_reviews ADD PRIMARY KEY (order_id);
+ALTER TABLE clean.order_items ADD PRIMARY KEY (order_id, order_item_id);
+ALTER TABLE clean.order_payments ADD PRIMARY KEY (order_id, payment_sequential);
