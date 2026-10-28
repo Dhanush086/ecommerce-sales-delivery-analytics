@@ -21,6 +21,7 @@
 | 5 | Late % rose from June to August 2018 | About 1.4%, 4.5% and 10.4% (83, 276 and 660 late orders) | Review recent carrier and seller performance | Cause unknown. Orders delivered later are not visible |
 | 6 | Few customers buy again | 2,888 of 94,990 customers (3.04%) placed 2 or more eligible orders | Test retention offers | About two years of data. This is a repeat rate, not customer lifetime value |
 | 7 | Sales are concentrated in a few states | SP 38.3% of item sales (5,163,867.22), top 5 states about 73.9%. SP delivery is faster (8.76 days) with fewer late orders (5.89%) | Protect service quality in SP and look at growth in smaller states | Association only. Cause unknown |
+| 8 | Late deliveries are associated with lower review scores | Average 2.57 (late) vs 4.29 (on time); 54.1% vs 9.2% low (1 to 2 star) reviews | Treat delivery performance as a customer-experience issue to investigate | Association only. One review per order (latest kept); 768 orders have no review |
 
 ## Limitations
 
@@ -46,6 +47,6 @@
 **Analysis scope**
 - Findings show associations, not causes. For example, the data does not explain the March 2018 spike or the Nov 2017 peak.
 - Only one November exists, so the peak cannot be called seasonal.
-- Reviews, products and sellers were not analysed (only orders, items, payments and customers).
+- - Products and sellers were not analysed. Reviews were analysed with one review per order (latest kept).
 - The Power BI file is not included in the repository.
   
