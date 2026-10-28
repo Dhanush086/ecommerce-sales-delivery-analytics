@@ -47,6 +47,6 @@
 **Analysis scope**
 - Findings show associations, not causes. For example, the data does not explain the March 2018 spike or the Nov 2017 peak.
 - Only one November exists, so the peak cannot be called seasonal.
-- - Products and sellers were not analysed. Reviews were analysed with one review per order (latest kept).
+- Products and sellers were not analysed. Reviews were analysed with one review per order (latest kept).
 - The Power BI file is not included in the repository.
   
