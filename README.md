@@ -89,7 +89,8 @@ SQL and Power BI were compared on item sales (13,494,400.74 excluding cancelled 
 
 - `sql/01_clean_tables.sql`: builds the clean layer from staging
 - `sql/02_analysis.sql`: analysis queries
-- `docs/`: dashboard screenshots and executive summary
+- `docs/`: dashboard screenshots
+- `data/executive_summary.md` executive summary
 - `data/README.md`: where to get the data
 
 ## How to reproduce
