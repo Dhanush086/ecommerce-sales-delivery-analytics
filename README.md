@@ -32,7 +32,7 @@ An analytics project on the public Olist Brazilian E-Commerce dataset, using Pos
 | 7 | Sales are concentrated in a few states | SP 38.3% of item sales, top 5 states about 73.9% |
 | 8 | Late deliveries are associated with lower review scores (association, not proven cause) | Average 2.57 (late) vs 4.29 (on time); 54.1% vs 9.2% low (1 to 2 star) reviews |
 
-Full details, recommendations and limitations: [docs/executive_summary.md](docs/executive_summary.md)
+Full details, recommendations and limitations: [executive_summary.md](executive_summary.md)
 
 ## Data
 
