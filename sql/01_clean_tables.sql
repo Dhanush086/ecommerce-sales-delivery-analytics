@@ -50,5 +50,14 @@ SELECT
     UPPER(TRIM(customer_state))  AS customer_state
 FROM staging.customers;
 
+CREATE TABLE clean.order_reviews AS
+SELECT DISTINCT ON (order_id)
+       order_id,
+       review_id,
+       review_score::int AS review_score,
+       NULLIF(review_creation_date, '')::timestamp AS review_created_ts
+FROM staging.order_reviews
+ORDER BY order_id, NULLIF(review_creation_date, '')::timestamp DESC NULLS LAST, review_id;
+
 ALTER TABLE clean.orders ADD PRIMARY KEY (order_id);
 ALTER TABLE clean.customers ADD PRIMARY KEY (customer_id);
