@@ -60,6 +60,7 @@ SELECT payment_type,
 FROM clean.order_payments
 GROUP BY payment_type
 ORDER BY orders DESC;
+
 -- 7. Item sales by customer state, with share of total and rank
 SELECT c.customer_state,
        SUM(i.price) AS item_sales,
@@ -71,3 +72,16 @@ JOIN clean.customers c ON c.customer_id = o.customer_id
 WHERE o.order_status NOT IN ('canceled', 'unavailable')
 GROUP BY c.customer_state
 ORDER BY item_sales DESC;
+
+-- 8. Review score: late vs on-time delivered orders (one review per order, latest kept)
+SELECT
+    CASE WHEN o.is_late THEN 'Late' ELSE 'On time' END AS delivery,
+    COUNT(*) AS orders,
+    ROUND(AVG(r.review_score), 2) AS avg_review_score,
+    ROUND(100.0 * COUNT(*) FILTER (WHERE r.review_score <= 2) / COUNT(*), 1) AS pct_low_scores
+FROM clean.orders o
+JOIN clean.order_reviews r ON r.order_id = o.order_id
+WHERE o.is_delivery_valid
+GROUP BY 1
+ORDER BY 1;
+
